@@ -75,9 +75,9 @@ class BPDev_BPNotification_Widget extends WP_Widget{
     function update($new_instance,$old_instance){
         $instance = $old_instance;
         $instance['title'] = strip_tags( $new_instance['title'] );
-        $instance['show_count_in_title'] = intval($new_instance['show_count_in_title'] ) ;//how many galleries
-        $instance['show_count'] = intval($new_instance['show_count'] ) ;//how many galleries
-        $instance['show_list'] = intval($new_instance['show_list'] ) ;//how many galleries
+        $instance['show_count_in_title'] = intval($new_instance['show_count_in_title'] ) ;
+        $instance['show_count'] = intval($new_instance['show_count'] ) ;
+        $instance['show_list'] = intval($new_instance['show_list'] ) ;
         return $instance;
     }
     //widget option form if any?
