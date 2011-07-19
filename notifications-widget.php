@@ -35,7 +35,7 @@ class BPDev_BPNotification_Widget extends WP_Widget{
     function __construct(){
        
             $name=__( 'BP Notifications', 'bpdnw' );
-        parent::WP_Widget( false, $name );
+        parent::__construct( false, $name );
     }
     
     function BPDev_BPNotification_Widget(){
@@ -65,7 +65,7 @@ class BPDev_BPNotification_Widget extends WP_Widget{
                 if($instance['show_count'])
                     printf(__('You have %d new Notifications','bpdnw'),$count);
                 if($instance['show_list'])
-                    $this->print_list($notifications,$count);
+                    self::print_list($notifications,$count);
                 
          echo $after_widget;       
                 
