@@ -2,7 +2,7 @@
 /**
  * Plugin Name: BuddyPress Notifications Widget
  * Author: Brajesh Singh
- * Versions:1.0.1
+ * Versions:1.0.2
  * Plugin URI: http://buddydev.com/plugins/buddypress-notifications-widget/
  * Author URI: http://buddydev.com/members/sbrajesh/
  * Description: Allow site admins to show BuddyPress user notification in widget.
@@ -89,7 +89,7 @@ class BPDev_BPNotification_Widget extends WP_Widget{
       ?>
        <p>
            <label for="bp-notification-title"><strong><?php _e('Title:', 'bpdnw'); ?> </strong>
-            <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo attribute_escape( $title ); ?>" style="width: 100%" />
+            <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" style="width: 100%" />
            </label>
        </p>
        <p>
@@ -138,6 +138,6 @@ function bpdev_notification_register_widget() {
 	add_action('widgets_init', create_function('', 'return register_widget("BPDev_BPNotification_Widget");') );
 	
 	}
-add_action( 'bp_init', 'bpdev_notification_register_widget' );
+add_action( 'bp_loaded', 'bpdev_notification_register_widget' );
 
 ?>
