@@ -2,7 +2,7 @@
 /**
  * Plugin Name: BuddyPress Notifications Widget
  * Author: Brajesh Singh
- * Versions:1.0.2
+ * Versions:1.0.3
  * Plugin URI: http://buddydev.com/plugins/buddypress-notifications-widget/
  * Author URI: http://buddydev.com/members/sbrajesh/
  * Description: Allow site admins to show BuddyPress user notification in widget.
@@ -61,11 +61,15 @@ class BPDev_BPNotification_Widget extends WP_Widget{
                     if($instance['show_count_in_title'])
                         printf("<span class='notification-count-in-title'>(%d)</span>",$count);
                 echo  $after_title;
+                echo "<div class='bpnw-notification-list'>";
                 if($instance['show_count'])
                     printf(__('You have %d new Notifications','bpdnw'),$count);
                 if($instance['show_list'])
                     self::print_list($notifications,$count);
-                
+                if($count>0)
+                      echo '<a class="clear-widget-notifications" href="'.bp_core_get_user_domain(bp_loggedin_user_id()).'?clear-all=true'.'&_wpnonce='.wp_create_nonce('clear-all-notifications-for-'.bp_loggedin_user_id()).'"> [x] Clear All Notifications</a>';
+	
+                echo "</div>";
          echo $after_widget;       
                 
     }
@@ -81,11 +85,12 @@ class BPDev_BPNotification_Widget extends WP_Widget{
     }
     //widget option form if any?
     function form($instance){
-      $instance = wp_parse_args( (array) $instance, array( 'title' => __('Notifications','bpdnw'), 'show_count' =>1,'show_count_in_title'=>0,'show_list'=>1 ) );
+      $instance = wp_parse_args( (array) $instance, array( 'title' => __('Notifications','bpdnw'), 'show_count' =>1,'show_count_in_title'=>0,'show_list'=>1,'show_clear_notification'=>1 ) );
       $title = strip_tags( $instance['title'] );
       $show_count_in_title = $instance['show_count_in_title'] ;//show notification count
       $show_count = $instance['show_count'] ;//show notification count
       $show_list =  $instance['show_list'] ;//show notification list  
+      $show_clear_notification=$instance['show_clear_notification'];
       ?>
        <p>
            <label for="bp-notification-title"><strong><?php _e('Title:', 'bpdnw'); ?> </strong>
@@ -105,6 +110,11 @@ class BPDev_BPNotification_Widget extends WP_Widget{
 	<p>
             <label for="bp-show-notification-list"><?php _e('Show the list of Notifications', 'bpdnw'); ?>
                 <input class="widefat" id="<?php echo $this->get_field_id( 'show_list' ); ?>" name="<?php echo $this->get_field_name( 'show_list' ); ?>" type="checkbox" value="1" <?php if($show_list) echo 'checked="checked"'; ?> style="width: 30%" />
+            </label>
+        </p>
+        <p>
+            <label for="bp-show_clear_notification"><?php _e('Show the Clear Notifications button', 'bpdnw'); ?>
+                <input class="widefat" id="<?php echo $this->get_field_id( 'show_clear_notification' ); ?>" name="<?php echo $this->get_field_name( 'show_clear_notification' ); ?>" type="checkbox" value="1" <?php if($show_clear_notification) echo 'checked="checked"'; ?> style="width: 30%" />
             </label>
         </p>
 <?php	
@@ -140,4 +150,25 @@ function bpdev_notification_register_widget() {
 	}
 add_action( 'bp_loaded', 'bpdev_notification_register_widget' );
 
+//load javascript
+add_action('wp_print_scripts','bpdev_notification_widget_load_js');
+function bpdev_notification_widget_load_js(){
+    wp_enqueue_script('notification-clear-js',  plugin_dir_url(__FILE__)."notification.js");
+}
+
+//ajaxed delete
+  add_action('wp_ajax_bpdev_notification_clear_notifications','bpdev_notification_clear_notifications');
+function bpdev_notification_clear_notifications(){
+        //CHECK VALIDITY OF NONCE
+    
+        if(!is_user_logged_in())
+            return;
+        $user_id=bp_loggedin_user_id();
+        check_ajax_referer('clear-all-notifications-for-'.$user_id);
+        global $bp, $wpdb;
+         $wpdb->query( $wpdb->prepare( "DELETE FROM {$bp->core->table_name_notifications} WHERE user_id = %d ", $user_id ) );
+        echo "1";
+        exit(0);
+    }
+    
 ?>
