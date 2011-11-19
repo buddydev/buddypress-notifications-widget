@@ -67,7 +67,7 @@ class BPDev_BPNotification_Widget extends WP_Widget{
                 if($instance['show_list'])
                     self::print_list($notifications,$count);
                 if($count>0)
-                      echo '<a class="clear-widget-notifications" href="'.bp_core_get_user_domain(bp_loggedin_user_id()).'?clear-all=true'.'&_wpnonce='.wp_create_nonce('clear-all-notifications-for-'.bp_loggedin_user_id()).'"> [x] Clear All Notifications</a>';
+                      echo '<a class="clear-widget-notifications" href="'.bp_core_get_user_domain(bp_loggedin_user_id()).'?clear-all=true'.'&_wpnonce='.wp_create_nonce('clear-all-notifications-for-'.bp_loggedin_user_id()).'">'.__('[x] Clear All Notifications','bpdnw').'</a>';
 	
                 echo "</div>";
          echo $after_widget;       
