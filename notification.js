@@ -35,7 +35,7 @@ jQuery(document).ready(function(){
       return false;
     });
 function get_var_in_url(url,name){
-    console.log(url);
+   // console.log(url);
     var urla=url.split("?");
     var qvars=urla[1].split("&");//so we hav an arry of name=val,name=val
     for(var i=0;i<qvars.length;i++){
