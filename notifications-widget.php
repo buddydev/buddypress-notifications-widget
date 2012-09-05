@@ -2,7 +2,7 @@
 /**
  * Plugin Name: BuddyPress Notifications Widget
  * Author: Brajesh Singh
- * Versions:1.0.4
+ * Versions:1.0.5
  * Plugin URI: http://buddydev.com/plugins/buddypress-notifications-widget/
  * Author URI: http://buddydev.com/members/sbrajesh/
  * Description: Allow site admins to show BuddyPress user notification in widget.
@@ -152,9 +152,9 @@ function bpdev_notification_register_widget() {
 add_action( 'bp_loaded', 'bpdev_notification_register_widget' );
 
 //load javascript
-add_action('wp_print_scripts','bpdev_notification_widget_load_js');
+add_action('bp_enqueue_scripts','bpdev_notification_widget_load_js');
 function bpdev_notification_widget_load_js(){
-    wp_enqueue_script('notification-clear-js',  plugin_dir_url(__FILE__)."notification.js");
+    wp_enqueue_script('notification-clear-js',  plugin_dir_url(__FILE__)."notification.js",array('jquery'));
 }
 
 //ajaxed delete
