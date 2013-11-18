@@ -2,7 +2,7 @@
 /**
  * Plugin Name: BuddyPress Notifications Widget
  * Author: Brajesh Singh
- * Versions:1.0.6
+ * Versions:1.0.7
  * Plugin URI: http://buddydev.com/plugins/buddypress-notifications-widget/
  * Author URI: http://buddydev.com/members/sbrajesh/
  * Description: Allow site admins to show BuddyPress user notification in widget.
