@@ -17,7 +17,7 @@ function bpdev_bpdnw_load_textdomain(){
       
 	// if load .mo file
 	if ( !empty( $locale ) ) {
-		$mofile_default = sprintf( '%slanguages/%s.mo', plugin_dir_path(__FILE__), $locale );
+		$mofile_default = sprintf( '%slanguages/%s.mo', plugin_dir_path( __FILE__ ), $locale );
               
 		$mofile = apply_filters( 'bpdnw_load_textdomain_mofile', $mofile_default );
 		
@@ -33,8 +33,8 @@ add_action ( 'bp_loaded', 'bpdev_bpdnw_load_textdomain', 2 );
 class BPDev_BPNotification_Widget extends WP_Widget{
     function __construct(){
        
-            $name=__( 'BP Notifications', 'bpdnw' );
-        parent::__construct( false, $name );
+       $name = __( 'BP Notifications', 'bpdnw' );
+       parent::__construct( false, $name );
     }
     
     function BPDev_BPNotification_Widget(){
@@ -42,33 +42,39 @@ class BPDev_BPNotification_Widget extends WP_Widget{
     }
     
     //display
-    function widget($args,$instance){
-       if(!is_user_logged_in())
+    function widget( $args, $instance ){
+       if( ! is_user_logged_in() )
            return ;//do not show anything if user is not logged in
+       
        extract( $args );
        
         //let us get the notifications for the user
-        $notifications = bp_core_get_notifications_for_user( bp_loggedin_user_id() );
-        if(empty($notifications))//will be set to flase if there are no notifications
-            $count=0;
+        $notifications = bp_core_get_notifications_for_user(get_current_user_id() );
+        
+        if( empty( $notifications ) )//will be set to flase if there are no notifications
+            $count = 0;
         else
-        $count=count($notifications);
-       if($count<=0)
+            $count = count( $notifications );
+       
+        if( $count <= 0 )
            return;//do not show this widget
     
         echo $before_widget;
 		echo $before_title;
                     echo $instance['title'];
-                    if($instance['show_count_in_title'])
-                        printf("<span class='notification-count-in-title'>(%d)</span>",$count);
+                    if( $instance['show_count_in_title'] )
+                        printf( "<span class='notification-count-in-title'>(%d)</span>", $count );
                 echo  $after_title;
                 echo "<div class='bpnw-notification-list'>";
-                if($instance['show_count'])
-                    printf(__('You have %d new Notifications','bpdnw'),$count);
-                if($instance['show_list'])
-                    self::print_list($notifications,$count);
-                if($count>0)
-                      echo '<a class="clear-widget-notifications" href="'.bp_core_get_user_domain(bp_loggedin_user_id()).'?clear-all=true'.'&_wpnonce='.wp_create_nonce('clear-all-notifications-for-'.bp_loggedin_user_id()).'">'.__('[x] Clear All Notifications','bpdnw').'</a>';
+               
+                if( $instance['show_count'] )
+                    printf( __( 'You have %d new Notifications', 'bpdnw' ), $count );
+                
+                if( $instance['show_list'] )
+                    self::print_list( $notifications, $count );
+                
+                if( $count > 0 )
+                      echo '<a class="clear-widget-notifications" href="'. bp_core_get_user_domain( get_current_user_id() ).'?clear-all=true' . '&_wpnonce=' . wp_create_nonce('clear-all-notifications-for-' . bp_loggedin_user_id() ). '">' . __( '[x] Clear All Notifications', 'bpdnw' ) . '</a>';
 	
                 echo "</div>";
          echo $after_widget;       
@@ -76,45 +82,55 @@ class BPDev_BPNotification_Widget extends WP_Widget{
     }
     //update
     
-    function update($new_instance,$old_instance){
+    function update( $new_instance, $old_instance ){
         $instance = $old_instance;
         $instance['title'] = strip_tags( $new_instance['title'] );
-        $instance['show_count_in_title'] = intval($new_instance['show_count_in_title'] ) ;
-        $instance['show_count'] = intval($new_instance['show_count'] ) ;
-        $instance['show_list'] = intval($new_instance['show_list'] ) ;
+        $instance['show_count_in_title'] = intval( $new_instance['show_count_in_title'] ) ;
+        $instance['show_count'] = intval( $new_instance['show_count'] ) ;
+        $instance['show_list'] = intval( $new_instance['show_list'] ) ;
         return $instance;
     }
     //widget option form if any?
-    function form($instance){
-      $instance = wp_parse_args( (array) $instance, array( 'title' => __('Notifications','bpdnw'), 'show_count' =>1,'show_count_in_title'=>0,'show_list'=>1,'show_clear_notification'=>1 ) );
+    function form( $instance ){
+      $instance = wp_parse_args(
+                    (array) $instance,
+                    array( 
+                        'title'                     => __( 'Notifications', 'bpdnw' ),
+                        'show_count'                => 1,
+                        'show_count_in_title'       => 0,
+                        'show_list'                 => 1,
+                        'show_clear_notification'   => 1
+                        )
+              );
+      
       $title = strip_tags( $instance['title'] );
       $show_count_in_title = $instance['show_count_in_title'] ;//show notification count
       $show_count = $instance['show_count'] ;//show notification count
       $show_list =  $instance['show_list'] ;//show notification list  
-      $show_clear_notification=$instance['show_clear_notification'];
+      $show_clear_notification = $instance['show_clear_notification'];
       ?>
        <p>
            <label for="bp-notification-title"><strong><?php _e('Title:', 'bpdnw'); ?> </strong>
-            <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" style="width: 100%" />
+                <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" style="width: 100%" />
            </label>
        </p>
        <p>
-            <label for="bp-show-notification-count-in-title"><?php _e('Show Notification count in Title', 'bpdnw'); ?> 
+            <label for="bp-show-notification-count-in-title"><?php _e( 'Show Notification count in Title', 'bpdnw' ); ?> 
                 <input class="widefat" id="<?php echo $this->get_field_id( 'show_count_in_title' ); ?>" name="<?php echo $this->get_field_name( 'show_count_in_title' ); ?>" type="checkbox" value="1" <?php if($show_count_in_title ) echo 'checked="checked"';?>style="width: 30%" />
             </label>
         </p>
 	<p>
-            <label for="bp-show-notification-count"><?php _e('Show Notification count', 'bpdnw'); ?> 
+            <label for="bp-show-notification-count"><?php _e( 'Show Notification count', 'bpdnw' ); ?> 
                 <input class="widefat" id="<?php echo $this->get_field_id( 'show_count' ); ?>" name="<?php echo $this->get_field_name( 'show_count' ); ?>" type="checkbox" value="1" <?php if($show_count ) echo 'checked="checked"';?>style="width: 30%" />
             </label>
         </p>
 	<p>
-            <label for="bp-show-notification-list"><?php _e('Show the list of Notifications', 'bpdnw'); ?>
+            <label for="bp-show-notification-list"><?php _e( 'Show the list of Notifications', 'bpdnw' ); ?>
                 <input class="widefat" id="<?php echo $this->get_field_id( 'show_list' ); ?>" name="<?php echo $this->get_field_name( 'show_list' ); ?>" type="checkbox" value="1" <?php if($show_list) echo 'checked="checked"'; ?> style="width: 30%" />
             </label>
         </p>
         <p>
-            <label for="bp-show_clear_notification"><?php _e('Show the Clear Notifications button', 'bpdnw'); ?>
+            <label for="bp-show_clear_notification"><?php _e( 'Show the Clear Notifications button', 'bpdnw' ); ?>
                 <input class="widefat" id="<?php echo $this->get_field_id( 'show_clear_notification' ); ?>" name="<?php echo $this->get_field_name( 'show_clear_notification' ); ?>" type="checkbox" value="1" <?php if($show_clear_notification) echo 'checked="checked"'; ?> style="width: 30%" />
             </label>
         </p>
@@ -122,7 +138,7 @@ class BPDev_BPNotification_Widget extends WP_Widget{
     }
  //helper
     
-    function print_list($notifications,$count){
+    function print_list( $notifications, $count ){
         echo '<ul class="bp-notification-list">';
         
 	if ( $notifications ) {
@@ -146,7 +162,7 @@ class BPDev_BPNotification_Widget extends WP_Widget{
 }
 //register widgets
 function bpdev_notification_register_widget() {
-	register_widget("BPDev_BPNotification_Widget");
+	register_widget( 'BPDev_BPNotification_Widget' );
 	
 	}
 add_action( 'bp_widgets_init', 'bpdev_notification_register_widget' );
@@ -158,18 +174,22 @@ function bpdev_notification_widget_load_js(){
 }
 
 //ajaxed delete
-  add_action('wp_ajax_bpdev_notification_clear_notifications','bpdev_notification_clear_notifications');
+add_action( 'wp_ajax_bpdev_notification_clear_notifications', 'bpdev_notification_clear_notifications' );
 function bpdev_notification_clear_notifications(){
         //CHECK VALIDITY OF NONCE
     
-        if(!is_user_logged_in())
+        if( !is_user_logged_in() )
             return;
-        $user_id=bp_loggedin_user_id();
-        check_ajax_referer('clear-all-notifications-for-'.$user_id);
+        
+        $user_id = bp_loggedin_user_id();
+        
+        check_ajax_referer( 'clear-all-notifications-for-' . $user_id );
+        
         global $bp, $wpdb;
-         $wpdb->query( $wpdb->prepare( "DELETE FROM {$bp->core->table_name_notifications} WHERE user_id = %d ", $user_id ) );
+        
+        $wpdb->query( $wpdb->prepare( "DELETE FROM {$bp->core->table_name_notifications} WHERE user_id = %d ", $user_id ) );
+        
         echo "1";
         exit(0);
     }
     
-?>
