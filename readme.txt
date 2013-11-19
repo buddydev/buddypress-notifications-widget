@@ -3,7 +3,7 @@ Contributors: sbrajesh,buddydev
 Tags: buddypress, notifications, widget
 Requires at least: BuddyPress 1.8
 Tested up to: BuddyPress 1.8.1
-Stable tag: 1.0
+Stable tag: 1.0.7
 License: GPLv2 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -38,8 +38,8 @@ No, It needs you to have BuddyPress Installed and activated
 
 == Changelog ==
 
-= 1.0 =
-* Initial release
+= 1.0.7 =
+
 
 == Other Notes ==
  Please leave a comment on [BuddyDev](http://buddydev.com/)
