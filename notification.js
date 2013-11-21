@@ -18,9 +18,11 @@ jQuery(document).ready(function(){
                 jq( '.bpnw-notification-list' ).remove();
                 jq( '.notification-count-in-title' ).text( '(0)' );
                 //remove all notifications
-
+                //let us remove the widget completely
+                if( $this.parents('.widget_bpdev_bpnotification_widget').get(0))
+                    $this.parents('.widget_bpdev_bpnotification_widget').remove();
                 $this.remove();//incase someone has used it somewhere else
-
+                
                 
             }
         });
@@ -28,12 +30,12 @@ jQuery(document).ready(function(){
     });
 
     //for individual notification item
-    jq("#bp-adminbar-notifications-menu span.close-notification").live('click', function(){
+    /*jq("#bp-adminbar-notifications-menu span.close-notification").live('click', function(){
         var $li=jq(this).parent();
         
 
       return false;
-    });
+    });*/
 function get_var_in_url( url, name ){
    // console.log(url);
     var urla = url.split( "?" );

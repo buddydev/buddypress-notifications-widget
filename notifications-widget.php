@@ -33,7 +33,7 @@ add_action ( 'bp_loaded', 'bpdev_bpdnw_load_textdomain', 2 );
 class BPDev_BPNotification_Widget extends WP_Widget{
     function __construct(){
        
-       $name = __( 'BP Notifications', 'bpdnw' );
+       $name = __( '(BuddyDev) BP Notifications', 'bpdnw' );
        parent::__construct( false, $name );
     }
     

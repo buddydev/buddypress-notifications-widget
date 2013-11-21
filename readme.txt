@@ -29,6 +29,9 @@ e.g.
 
 == Frequently Asked Questions ==
 
+= Why I am not seeing the widget on Frontend? =
+The widget is only visible if user has some unread notification.
+
 = Does This plugin works without BuddyPress =
 No, It needs you to have BuddyPress Installed and activated
 
