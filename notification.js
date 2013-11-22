@@ -15,14 +15,16 @@ jQuery(document).ready(function(){
                 //remove notification count
                 jq( '#bp-adminbar-notifications-menu' ).find( 'span' ).remove();
                 jq( '#bp-adminbar-notifications-menu>ul' ).remove();
-                jq( '.bpnw-notification-list' ).remove();
+              
                 jq( '.notification-count-in-title' ).text( '(0)' );
                 //remove all notifications
                 //let us remove the widget completely
                 if( $this.parents('.widget_bpdev_bpnotification_widget').get(0))
                     $this.parents('.widget_bpdev_bpnotification_widget').remove();
-                $this.remove();//incase someone has used it somewhere else
                 
+                //we may not neeed below lines, these are just safe measuers in case the widget does not have our class as there are some real great theme authors out there    
+                $this.remove();//incase someone has used it somewhere else
+                 jq( '.bpnw-notification-list' ).remove();
                 
             }
         });
