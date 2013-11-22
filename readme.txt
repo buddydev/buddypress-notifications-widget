@@ -1,9 +1,9 @@
-=== BuddyPress Signup Avatar ===
-Contributors: sbrajesh,buddydev
+=== BuddyPress Notification Widget ===
+Contributors: anusharma,sbrajesh,buddydev
 Tags: buddypress, notifications, widget
-Requires at least: BuddyPress 1.8
+Requires at least: BuddyPress 1.7
 Tested up to: BuddyPress 1.8.1
-Stable tag: 1.0.7
+Stable tag: 1.0.8
 License: GPLv2 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,13 +15,17 @@ BuddyPress notification widget allow site admins to show BuddyPress user notific
 
 = How it works:- =
 
-Add widget in widget area to show notifications
+Add BP Notification widget in widget area to show notifications
+
+= Help & Support =
+Please leave a comment on our blog [BuddyDev](http://buddydev.com/buddypress/buddypress-user-notifications-widget-plugin/) for any suggestions, support request.
+
 
 == Installation ==
 
 This section describes how to install the plugin and get it working.
 
-e.g.
+
 1. Download the zip file and extract
 1. Upload `buddypress-notification-widget` directory to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu.
@@ -45,4 +49,4 @@ No, It needs you to have BuddyPress Installed and activated
 
 
 == Other Notes ==
- Please leave a comment on [BuddyDev](http://buddydev.com/)
+ Please leave a comment on our blog  [BuddyDev](http://buddydev.com/buddypress/buddypress-user-notifications-widget-plugin/)
