@@ -49,7 +49,7 @@ class BPDev_BPNotification_Widget extends WP_Widget{
        extract( $args );
        
         //let us get the notifications for the user
-        $notifications = bp_core_get_notifications_for_user(get_current_user_id() );
+        $notifications = bp_notifications_get_notifications_for_user( get_current_user_id(), $format='simple' );
         
         if( empty( $notifications ) )//will be set to flase if there are no notifications
             $count = 0;
