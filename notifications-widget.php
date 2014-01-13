@@ -2,7 +2,7 @@
 /**
  * Plugin Name: BuddyPress Notifications Widget
  * Author: Brajesh Singh
- * Versions:1.0.9
+ * Version: 1.1
  * Plugin URI: http://buddydev.com/plugins/buddypress-notifications-widget/
  * Author URI: http://buddydev.com/members/sbrajesh/
  * Description: Allow site admins to show BuddyPress user notification in widget.
@@ -49,7 +49,10 @@ class BPDev_BPNotification_Widget extends WP_Widget{
        extract( $args );
        
         //let us get the notifications for the user
-        $notifications = bp_notifications_get_notifications_for_user( get_current_user_id() );
+       if( function_exists( 'bp_notifications_get_notifications_for_user' ) )
+            $notifications = bp_notifications_get_notifications_for_user( get_current_user_id() );
+       else
+            $notifications = bp_core_get_notifications_for_user( get_current_user_id() );
         
         if( empty( $notifications ) )//will be set to flase if there are no notifications
             $count = 0;
