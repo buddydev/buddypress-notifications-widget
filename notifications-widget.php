@@ -2,7 +2,7 @@
 /**
  * Plugin Name: BuddyPress Notifications Widget
  * Author: Brajesh Singh
- * Version: 1.1
+ * Version: 1.1.1
  * Plugin URI: http://buddydev.com/plugins/buddypress-notifications-widget/
  * Author URI: http://buddydev.com/members/sbrajesh/
  * Description: Allow site admins to show BuddyPress user notification in widget.
@@ -76,7 +76,7 @@ class BPDev_BPNotification_Widget extends WP_Widget{
                 if( $instance['show_list'] )
                     self::print_list( $notifications, $count );
                 
-                if( $count > 0 )
+                if( $count > 0 && $instance['show_clear_notification'] )
                       echo '<a class="clear-widget-notifications" href="'. bp_core_get_user_domain( get_current_user_id() ).'?clear-all=true' . '&_wpnonce=' . wp_create_nonce('clear-all-notifications-for-' . bp_loggedin_user_id() ). '">' . __( '[x] Clear All Notifications', 'bpdnw' ) . '</a>';
 	
                 echo "</div>";
@@ -91,6 +91,7 @@ class BPDev_BPNotification_Widget extends WP_Widget{
         $instance['show_count_in_title'] = intval( $new_instance['show_count_in_title'] ) ;
         $instance['show_count'] = intval( $new_instance['show_count'] ) ;
         $instance['show_list'] = intval( $new_instance['show_list'] ) ;
+        $instance['show_clear_notification'] = intval( $new_instance['show_clear_notification'] ) ;
         return $instance;
     }
     //widget option form if any?
