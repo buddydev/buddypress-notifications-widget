@@ -3,7 +3,7 @@ Contributors: anusharma,sbrajesh,buddydev
 Tags: buddypress, notifications, widget
 Requires at least: BuddyPress 1.9
 Tested up to: BuddyPress 1.9.1
-Stable tag: 1.1
+Stable tag: 1.1.1
 License: GPLv2 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -45,6 +45,8 @@ No, It needs you to have BuddyPress Installed and activated
 
 == Changelog ==
 
+= 1.1.1 =
+ Updated to use widget options properly 
 = 1.1 =
  Updated to add back compatiblity with pre BuddyPress 1.9
 = 1.0.9 =
