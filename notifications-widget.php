@@ -2,7 +2,7 @@
 /**
  * Plugin Name: BuddyPress Notifications Widget
  * Author: Brajesh Singh
- * Version: 1.1.1
+ * Version: 1.1.2
  * Plugin URI: http://buddydev.com/plugins/buddypress-notifications-widget/
  * Author URI: http://buddydev.com/members/sbrajesh/
  * Description: Allow site admins to show BuddyPress user notification in widget.
@@ -50,10 +50,11 @@ class BPDev_BPNotification_Widget extends WP_Widget{
        
         //let us get the notifications for the user
        if( function_exists( 'bp_notifications_get_notifications_for_user' ) )
-            $notifications = bp_notifications_get_notifications_for_user( get_current_user_id() );
+            $notifications = bp_notifications_get_notifications_for_user( get_current_user_id() , 'string' );
        else
-            $notifications = bp_core_get_notifications_for_user( get_current_user_id() );
+            $notifications = bp_core_get_notifications_for_user( get_current_user_id(), 'string' );
         
+	  
         if( empty( $notifications ) )//will be set to flase if there are no notifications
             $count = 0;
         else
@@ -143,14 +144,26 @@ class BPDev_BPNotification_Widget extends WP_Widget{
  //helper
     
     function print_list( $notifications, $count ){
+		
         echo '<ul class="bp-notification-list">';
         
 	if ( $notifications ) {
+		
 		$counter = 0;
+		
 		for ( $i = 0; $i < $count; $i++ ) {
+			
+			$notification_item = '';
+			if ( is_array( $notifications[ $i ] ) ) {
+				$notification_item = sprintf( '<a href="%s">%s</a>', $notifications[ $i ]['link'], $notifications[ $i ]['text'] );
+			} else {
+				$notification_item = $notifications[ $i ];
+			}
+			
+			
 			$alt = ( 0 == $counter % 2 ) ? ' class="alt"' : ''; ?>
 
-			<li<?php echo $alt ?>><?php echo $notifications[$i] ?></li>
+			<li<?php echo $alt ?>><?php echo $notification_item ?></li>
 
 			<?php $counter++;
 		}

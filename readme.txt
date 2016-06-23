@@ -1,9 +1,9 @@
 === BuddyPress Notification Widget ===
 Contributors: anusharma,sbrajesh,buddydev
 Tags: buddypress, notifications, widget
-Requires at least: BuddyPress 1.9
-Tested up to: BuddyPress 1.9.1
-Stable tag: 1.1.1
+Requires at least: 3.5.0
+Tested up to: 4.5.3
+Stable tag: 1.1.2
 License: GPLv2 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,9 @@ No, It needs you to have BuddyPress Installed and activated
 1. This shows notifications in widget screenshot.png
 
 == Changelog ==
+= 1.1.2 =
+ * Fixed for listing of notifications  
+ * Tested with BuddyPress 2.6.0
 
 = 1.1.1 =
  Updated to use widget options properly 
