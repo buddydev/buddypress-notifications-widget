@@ -35,6 +35,7 @@ class BuddyDev_BP_Notifications_Widget_Helper {
 	public function setup() {
 
 		add_action( 'bp_loaded', array( $this, 'load' ) );
+		add_action( 'bp_init', array( $this, 'load_textdomain' ) );
 		add_action( 'bp_widgets_init', array( $this, 'register_widget' ) );
 		add_action( 'bp_enqueue_scripts', array( $this, 'load_js' ) );
 		add_action( 'wp_ajax_bpdev_notification_clear_notifications', array( $this, 'clear_notifications' ) );
@@ -53,6 +54,24 @@ class BuddyDev_BP_Notifications_Widget_Helper {
 
 		foreach ( $files as $file ) {
 			require_once $this->path . $file;
+		}
+	}
+
+	public function load_textdomain() {
+
+		$locale = apply_filters( 'bpdnw_load_textdomain_get_locale', get_locale() );
+
+
+		// if load .mo file.
+		if ( ! empty( $locale ) ) {
+			$mofile_default = sprintf( '%slanguages/%s.mo', plugin_dir_path( __FILE__ ), $locale );
+
+			$mofile = apply_filters( 'bpdnw_load_textdomain_mofile', $mofile_default );
+
+			if ( file_exists( $mofile ) ) {
+				// make sure file exists, and load it.
+				load_textdomain( 'bpdnw', $mofile );
+			}
 		}
 	}
 
@@ -95,26 +114,4 @@ class BuddyDev_BP_Notifications_Widget_Helper {
 }
 
 new BuddyDev_BP_Notifications_Widget_Helper();
-
-
-//localization
-function bpdev_bpdnw_load_textdomain() {
-
-	$locale = apply_filters( 'bpdnw_load_textdomain_get_locale', get_locale() );
-
-
-	// if load .mo file
-	if ( ! empty( $locale ) ) {
-		$mofile_default = sprintf( '%slanguages/%s.mo', plugin_dir_path( __FILE__ ), $locale );
-
-		$mofile = apply_filters( 'bpdnw_load_textdomain_mofile', $mofile_default );
-
-		if ( file_exists( $mofile ) ) {
-			// make sure file exists, and load it
-			load_textdomain( 'bpdnw', $mofile );
-		}
-	}
-}
-
-add_action( 'bp_loaded', 'bpdev_bpdnw_load_textdomain', 2 );
 
