@@ -35,6 +35,8 @@ class BuddyDev_BP_Notifications_Widget_Helper {
 	public function setup() {
 
 		add_action( 'bp_loaded', array( $this, 'load' ) );
+		add_action( 'bp_widgets_init', array( $this, 'register_widget' ) );
+
 	}
 
 	/**
@@ -50,6 +52,13 @@ class BuddyDev_BP_Notifications_Widget_Helper {
 		foreach ( $files as $file ) {
 			require_once $this->path . $file;
 		}
+	}
+
+	/**
+	 * Register the widget.
+	 */
+	public function register_widget() {
+		register_widget( 'BuddyDev_BPNotification_Widget' );
 	}
 }
 
@@ -78,13 +87,6 @@ function bpdev_bpdnw_load_textdomain() {
 add_action( 'bp_loaded', 'bpdev_bpdnw_load_textdomain', 2 );
 
 
-//register widgets
-function bpdev_notification_register_widget() {
-	register_widget( 'BuddyDev_BPNotification_Widget' );
-
-}
-
-add_action( 'bp_widgets_init', 'bpdev_notification_register_widget' );
 
 //load javascript
 add_action( 'bp_enqueue_scripts', 'bpdev_notification_widget_load_js' );
