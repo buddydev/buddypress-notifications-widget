@@ -53,7 +53,7 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 
 		echo $args['before_widget'];
 		echo $args['before_title'];
-		echo $instance['title'];
+		echo apply_filters( 'widget_title', $instance['title'] , $instance, $this->id_base );
 
 		if ( $instance['show_count_in_title'] ) {
 			printf( "<span class='notification-count-in-title'>(%d)</span>", $count );
