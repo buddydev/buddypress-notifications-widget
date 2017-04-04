@@ -27,7 +27,6 @@ class BuddyDev_BP_Notifications_Widget_Helper {
 	public function __construct() {
 		$this->path = plugin_dir_path( __FILE__ );
 		add_action( 'bp_loaded', array( $this, 'setup' ) );
-
 	}
 
 	/**
@@ -73,7 +72,6 @@ class BuddyDev_BP_Notifications_Widget_Helper {
 	 * Ajax clear all notifications for the current user.
 	 */
 	public function clear_notifications() {
-		//CHECK VALIDITY OF NONCE
 
 		if ( ! is_user_logged_in() ) {
 			return;
@@ -81,7 +79,7 @@ class BuddyDev_BP_Notifications_Widget_Helper {
 
 		$user_id = bp_loggedin_user_id();
 
-		check_ajax_referer( 'clear-all-notifications-for-' . $user_id );
+		check_ajax_referer( 'bp-notifications-widget-clear-all-' . $user_id );
 
 		global $bp, $wpdb;
 
