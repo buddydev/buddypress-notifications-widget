@@ -72,7 +72,7 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 		}
 
 		if ( $count > 0 && $instance['show_clear_notification'] ) {
-			echo '<a class="clear-widget-notifications" href="' . bp_core_get_user_domain( get_current_user_id() ) . '?clear-all=true' . '&_wpnonce=' . wp_create_nonce( 'clear-all-notifications-for-' . bp_loggedin_user_id() ) . '">' . __( '[x] Clear All Notifications', 'buddypress-notifications-widget' ) . '</a>';
+			echo '<a class="bp-notifications-widget-clear-link" href="' . bp_core_get_user_domain( get_current_user_id() ) . '?clear-all=true' . '&_wpnonce=' . wp_create_nonce( 'clear-all-notifications-for-' . bp_loggedin_user_id() ) . '">' . __( '[x] Clear All Notifications', 'buddypress-notifications-widget' ) . '</a>';
 		}
 
 		echo '</div>';
