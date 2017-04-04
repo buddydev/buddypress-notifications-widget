@@ -47,7 +47,7 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 		}
 
 		// do not show this widget.
-		if ( $count <= 0 ) {
+		if ( $count <= 0 && empty( $instance['show_empty'] ) ) {
 			return;
 		}
 
@@ -95,6 +95,7 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 		$instance['show_count']              = intval( $new_instance['show_count'] );
 		$instance['show_list']               = intval( $new_instance['show_list'] );
 		$instance['show_clear_notification'] = intval( $new_instance['show_clear_notification'] );
+		$instance['show_empty']              = intval( $new_instance['show_empty'] );
 
 		return $instance;
 	}
@@ -113,38 +114,40 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 				'show_count_in_title'     => 0,
 				'show_list'               => 1,
 				'show_clear_notification' => 1,
+				'show_empty'              => 0,
 			)
 		);
 
 		$title                   = strip_tags( $instance['title'] );
-		$show_count_in_title     = $instance['show_count_in_title']; // show notification count.
-		$show_count              = $instance['show_count']; // show notification count.
-		$show_list               = $instance['show_list']; // show notification list.
-		$show_clear_notification = $instance['show_clear_notification'];
+		$show_count_in_title     = absint( $instance['show_count_in_title'] ); // show notification count.
+		$show_count              = absint( $instance['show_count'] ); // show notification count.
+		$show_list               = absint( $instance['show_list'] ); // show notification list.
+		$show_clear_notification = absint( $instance['show_clear_notification'] );
+		$show_empty              = absint( $instance['show_empty'] );
 		?>
         <p>
             <label for="bp-notification-title"><strong><?php _e( 'Title:', 'buddypress-notifications-widget' ); ?> </strong>
                 <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>"
                        name="<?php echo $this->get_field_name( 'title' ); ?>" type="text"
-                       value="<?php echo esc_attr( $title ); ?>" style="width: 100%"/>
+                       value="<?php echo esc_attr( $title ); ?>"/>
             </label>
         </p>
         <p>
-            <label for="bp-show-notification-count-in-title"><?php _e( 'Show Notification count in Title', 'buddypress-notifications-widget' ); ?>
+            <label for="bp-show-notification-count-in-title"><?php _e( 'Show Notification count in title', 'buddypress-notifications-widget' ); ?>
                 <input class="widefat" id="<?php echo $this->get_field_id( 'show_count_in_title' ); ?>"
                        name="<?php echo $this->get_field_name( 'show_count_in_title' ); ?>" type="checkbox" value="1"
-				       <?php if ( $show_count_in_title ) {
-					       echo 'checked="checked"';
-				       } ?>/>
+					<?php if ( $show_count_in_title ) {
+						echo 'checked="checked"';
+					} ?>/>
             </label>
         </p>
         <p>
-            <label for="bp-show-notification-count"><?php _e( 'Show Notification count', 'buddypress-notifications-widget' ); ?>
+            <label for="bp-show-notification-count"><?php _e( 'Show Notification count text', 'buddypress-notifications-widget' ); ?>
                 <input class="widefat" id="<?php echo $this->get_field_id( 'show_count' ); ?>"
                        name="<?php echo $this->get_field_name( 'show_count' ); ?>" type="checkbox" value="1"
-				       <?php if ( $show_count ) {
-					       echo 'checked="checked"';
-				       } ?>/>
+					<?php if ( $show_count ) {
+						echo 'checked="checked"';
+					} ?>/>
             </label>
         </p>
         <p>
@@ -154,6 +157,13 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
                        value="1" <?php if ( $show_list ) {
 					echo 'checked="checked"';
 				} ?> />
+            </label>
+        </p>
+        <p>
+            <label for="bp-show-empty-widget"><?php _e( 'Show widget even when there are no notifications?', 'buddypress-notifications-widget' ); ?>
+                <input class="widefat" id="<?php echo $this->get_field_id( 'show_empty' ); ?>"
+                       name="<?php echo $this->get_field_name( 'show_empty' ); ?>" type="checkbox"
+                       value="1" <?php checked( $show_empty, 1 ); ?> />
             </label>
         </p>
         <p>
