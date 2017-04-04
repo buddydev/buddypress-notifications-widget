@@ -37,6 +37,7 @@ class BuddyDev_BP_Notifications_Widget_Helper {
 		add_action( 'bp_loaded', array( $this, 'load' ) );
 		add_action( 'bp_widgets_init', array( $this, 'register_widget' ) );
 		add_action( 'bp_enqueue_scripts', array( $this, 'load_js' ) );
+		add_action( 'wp_ajax_bpdev_notification_clear_notifications', array( $this, 'clear_notifications' ) );
 
 	}
 
@@ -60,6 +61,28 @@ class BuddyDev_BP_Notifications_Widget_Helper {
 	 */
 	public function register_widget() {
 		register_widget( 'BuddyDev_BPNotification_Widget' );
+	}
+
+	/**
+	 * Ajax clear all notifications for the current user.
+	 */
+	public function clear_notifications() {
+		//CHECK VALIDITY OF NONCE
+
+		if ( ! is_user_logged_in() ) {
+			return;
+		}
+
+		$user_id = bp_loggedin_user_id();
+
+		check_ajax_referer( 'clear-all-notifications-for-' . $user_id );
+
+		global $bp, $wpdb;
+
+		$wpdb->query( $wpdb->prepare( "DELETE FROM {$bp->core->table_name_notifications} WHERE user_id = %d ", $user_id ) );
+
+		echo "1";
+		exit( 0 );
 	}
 
 	/**
@@ -95,27 +118,3 @@ function bpdev_bpdnw_load_textdomain() {
 
 add_action( 'bp_loaded', 'bpdev_bpdnw_load_textdomain', 2 );
 
-
-
-
-//ajaxed delete
-add_action( 'wp_ajax_bpdev_notification_clear_notifications', 'bpdev_notification_clear_notifications' );
-function bpdev_notification_clear_notifications() {
-	//CHECK VALIDITY OF NONCE
-
-	if ( ! is_user_logged_in() ) {
-		return;
-	}
-
-	$user_id = bp_loggedin_user_id();
-
-	check_ajax_referer( 'clear-all-notifications-for-' . $user_id );
-
-	global $bp, $wpdb;
-
-	$wpdb->query( $wpdb->prepare( "DELETE FROM {$bp->core->table_name_notifications} WHERE user_id = %d ", $user_id ) );
-
-	echo "1";
-	exit( 0 );
-}
-    
