@@ -57,22 +57,11 @@ class BuddyDev_BP_Notifications_Widget_Helper {
 		}
 	}
 
+	/**
+	 * Load translation.
+	 */
 	public function load_textdomain() {
-
-		$locale = apply_filters( 'bpdnw_load_textdomain_get_locale', get_locale() );
-
-
-		// if load .mo file.
-		if ( ! empty( $locale ) ) {
-			$mofile_default = sprintf( '%slanguages/%s.mo', plugin_dir_path( __FILE__ ), $locale );
-
-			$mofile = apply_filters( 'bpdnw_load_textdomain_mofile', $mofile_default );
-
-			if ( file_exists( $mofile ) ) {
-				// make sure file exists, and load it.
-				load_textdomain( 'bpdnw', $mofile );
-			}
-		}
+		load_plugin_textdomain( 'buddypress-notifications-widget', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 	}
 
 	/**

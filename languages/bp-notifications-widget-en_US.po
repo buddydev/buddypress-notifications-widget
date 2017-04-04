@@ -1,0 +1,58 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: BuddyPress Notifications Widget\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-04-04 17:49+0530\n"
+"PO-Revision-Date: 2017-04-04 17:49+0530\n"
+"Last-Translator: Brajesh Singh <brajesh@gmail.com>\n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: core/class-bp-notification-widget.php:18
+msgid "(BuddyDev) BP Notifications"
+msgstr ""
+
+#: core/class-bp-notification-widget.php:67
+#, php-format
+msgid "You have %d new Notifications"
+msgstr ""
+
+#: core/class-bp-notification-widget.php:75
+msgid "[x] Clear All Notifications"
+msgstr ""
+
+#: core/class-bp-notification-widget.php:111
+msgid "Notifications"
+msgstr ""
+
+#: core/class-bp-notification-widget.php:126
+msgid "Title:"
+msgstr ""
+
+#: core/class-bp-notification-widget.php:133
+msgid "Show Notification count in Title"
+msgstr ""
+
+#: core/class-bp-notification-widget.php:142
+msgid "Show Notification count"
+msgstr ""
+
+#: core/class-bp-notification-widget.php:151
+msgid "Show the list of Notifications"
+msgstr ""
+
+#: core/class-bp-notification-widget.php:160
+msgid "Show the Clear Notifications button"
+msgstr ""
+
+#: core/class-bp-notification-widget.php:203
+msgid "You don't have any new notification."
+msgstr ""

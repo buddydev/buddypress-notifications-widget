@@ -15,7 +15,7 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 	 * Constructor
 	 */
 	public function __construct() {
-		$name = __( '(BuddyDev) BP Notifications', 'bpdnw' );
+		$name = __( '(BuddyDev) BP Notifications', 'buddypress-notifications-widget' );
 		parent::__construct( false, $name );
 	}
 
@@ -64,7 +64,7 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 		echo "<div class='bpnw-notification-list bp-notification-widget-notifications-list'>";
 
 		if ( ! empty( $instance['show_count'] ) ) {
-			printf( __( 'You have %d new Notifications', 'bpdnw' ), $count );
+			printf( __( 'You have %d new Notifications', 'buddypress-notifications-widget' ), $count );
 		}
 
 		if ( $instance['show_list'] ) {
@@ -72,7 +72,7 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 		}
 
 		if ( $count > 0 && $instance['show_clear_notification'] ) {
-			echo '<a class="clear-widget-notifications" href="' . bp_core_get_user_domain( get_current_user_id() ) . '?clear-all=true' . '&_wpnonce=' . wp_create_nonce( 'clear-all-notifications-for-' . bp_loggedin_user_id() ) . '">' . __( '[x] Clear All Notifications', 'bpdnw' ) . '</a>';
+			echo '<a class="clear-widget-notifications" href="' . bp_core_get_user_domain( get_current_user_id() ) . '?clear-all=true' . '&_wpnonce=' . wp_create_nonce( 'clear-all-notifications-for-' . bp_loggedin_user_id() ) . '">' . __( '[x] Clear All Notifications', 'buddypress-notifications-widget' ) . '</a>';
 		}
 
 		echo '</div>';
@@ -123,14 +123,14 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 		$show_clear_notification = $instance['show_clear_notification'];
 		?>
         <p>
-            <label for="bp-notification-title"><strong><?php _e( 'Title:', 'bpdnw' ); ?> </strong>
+            <label for="bp-notification-title"><strong><?php _e( 'Title:', 'buddypress-notifications-widget' ); ?> </strong>
                 <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>"
                        name="<?php echo $this->get_field_name( 'title' ); ?>" type="text"
                        value="<?php echo esc_attr( $title ); ?>" style="width: 100%"/>
             </label>
         </p>
         <p>
-            <label for="bp-show-notification-count-in-title"><?php _e( 'Show Notification count in Title', 'bpdnw' ); ?>
+            <label for="bp-show-notification-count-in-title"><?php _e( 'Show Notification count in Title', 'buddypress-notifications-widget' ); ?>
                 <input class="widefat" id="<?php echo $this->get_field_id( 'show_count_in_title' ); ?>"
                        name="<?php echo $this->get_field_name( 'show_count_in_title' ); ?>" type="checkbox" value="1"
 				       <?php if ( $show_count_in_title ) {
@@ -139,7 +139,7 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
             </label>
         </p>
         <p>
-            <label for="bp-show-notification-count"><?php _e( 'Show Notification count', 'bpdnw' ); ?>
+            <label for="bp-show-notification-count"><?php _e( 'Show Notification count', 'buddypress-notifications-widget' ); ?>
                 <input class="widefat" id="<?php echo $this->get_field_id( 'show_count' ); ?>"
                        name="<?php echo $this->get_field_name( 'show_count' ); ?>" type="checkbox" value="1"
 				       <?php if ( $show_count ) {
@@ -148,7 +148,7 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
             </label>
         </p>
         <p>
-            <label for="bp-show-notification-list"><?php _e( 'Show the list of Notifications', 'bpdnw' ); ?>
+            <label for="bp-show-notification-list"><?php _e( 'Show the list of Notifications', 'buddypress-notifications-widget' ); ?>
                 <input class="widefat" id="<?php echo $this->get_field_id( 'show_list' ); ?>"
                        name="<?php echo $this->get_field_name( 'show_list' ); ?>" type="checkbox"
                        value="1" <?php if ( $show_list ) {
@@ -157,7 +157,7 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
             </label>
         </p>
         <p>
-            <label for="bp-show_clear_notification"><?php _e( 'Show the Clear Notifications button', 'bpdnw' ); ?>
+            <label for="bp-show_clear_notification"><?php _e( 'Show the Clear Notifications button', 'buddypress-notifications-widget' ); ?>
                 <input class="widefat" id="<?php echo $this->get_field_id( 'show_clear_notification' ); ?>"
                        name="<?php echo $this->get_field_name( 'show_clear_notification' ); ?>" type="checkbox"
                        value="1" <?php if ( $show_clear_notification ) {
@@ -200,7 +200,7 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 			}
 		} else { ?>
 
-            <li><?php _e( 'You don\'t have any new notification.', 'bpdnw' ); ?></li>
+            <li><?php _e( 'You don\'t have any new notification.', 'buddypress-notifications-widget' ); ?></li>
 
 			<?php
 		}
