@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BuddyPress Notifications Widget\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-04 17:49+0530\n"
-"PO-Revision-Date: 2017-04-04 17:49+0530\n"
+"POT-Creation-Date: 2017-04-04 21:30+0530\n"
+"PO-Revision-Date: 2017-04-04 21:30+0530\n"
 "Last-Translator: Brajesh Singh <brajesh@gmail.com>\n"
 "Language-Team: \n"
 "Language: en\n"
@@ -26,33 +26,41 @@ msgid "You have %d new Notifications"
 msgstr ""
 
 #: core/class-bp-notification-widget.php:75
+msgid "clearing..."
+msgstr ""
+
+#: core/class-bp-notification-widget.php:76
 msgid "[x] Clear All Notifications"
 msgstr ""
 
-#: core/class-bp-notification-widget.php:111
+#: core/class-bp-notification-widget.php:113
 msgid "Notifications"
 msgstr ""
 
-#: core/class-bp-notification-widget.php:126
+#: core/class-bp-notification-widget.php:131
 msgid "Title:"
 msgstr ""
 
-#: core/class-bp-notification-widget.php:133
-msgid "Show Notification count in Title"
+#: core/class-bp-notification-widget.php:139
+msgid "Show Notification count in title"
 msgstr ""
 
-#: core/class-bp-notification-widget.php:142
-msgid "Show Notification count"
+#: core/class-bp-notification-widget.php:147
+msgid "Show Notification count text"
 msgstr ""
 
-#: core/class-bp-notification-widget.php:151
+#: core/class-bp-notification-widget.php:154
 msgid "Show the list of Notifications"
 msgstr ""
 
-#: core/class-bp-notification-widget.php:160
+#: core/class-bp-notification-widget.php:161
+msgid "Show widget even when there are no notifications?"
+msgstr ""
+
+#: core/class-bp-notification-widget.php:168
 msgid "Show the Clear Notifications button"
 msgstr ""
 
-#: core/class-bp-notification-widget.php:203
+#: core/class-bp-notification-widget.php:209
 msgid "You don't have any new notification."
 msgstr ""
