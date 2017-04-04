@@ -108,7 +108,7 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 		$instance = wp_parse_args(
 			(array) $instance,
 			array(
-				'title'                   => __( 'Notifications', 'bpdnw' ),
+				'title'                   => __( 'Notifications', 'buddypress-notifications-widget' ),
 				'show_count'              => 1,
 				'show_count_in_title'     => 0,
 				'show_list'               => 1,
@@ -135,7 +135,7 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
                        name="<?php echo $this->get_field_name( 'show_count_in_title' ); ?>" type="checkbox" value="1"
 				       <?php if ( $show_count_in_title ) {
 					       echo 'checked="checked"';
-				       } ?>style="width: 30%"/>
+				       } ?>/>
             </label>
         </p>
         <p>
@@ -144,7 +144,7 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
                        name="<?php echo $this->get_field_name( 'show_count' ); ?>" type="checkbox" value="1"
 				       <?php if ( $show_count ) {
 					       echo 'checked="checked"';
-				       } ?>style="width: 30%"/>
+				       } ?>/>
             </label>
         </p>
         <p>
@@ -153,7 +153,7 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
                        name="<?php echo $this->get_field_name( 'show_list' ); ?>" type="checkbox"
                        value="1" <?php if ( $show_list ) {
 					echo 'checked="checked"';
-				} ?> style="width: 30%"/>
+				} ?> />
             </label>
         </p>
         <p>
@@ -162,7 +162,7 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
                        name="<?php echo $this->get_field_name( 'show_clear_notification' ); ?>" type="checkbox"
                        value="1" <?php if ( $show_clear_notification ) {
 					echo 'checked="checked"';
-				} ?> style="width: 30%"/>
+				} ?> />
             </label>
         </p>
 		<?php
