@@ -46,15 +46,7 @@ class BuddyDev_BP_Notifications_Widget_Helper {
 	 * Load core files
 	 */
 	public function load() {
-
-		$files = array(
-			'core/bp-notification-widget-functions.php',
-			'core/class-bp-notification-widget.php',
-		);
-
-		foreach ( $files as $file ) {
-			require_once $this->path . $file;
-		}
+		require_once $this->path . 'core/bp-notification-widget-functions.php';
 	}
 
 	/**
