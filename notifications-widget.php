@@ -26,7 +26,8 @@ class BuddyDev_BP_Notifications_Widget_Helper {
 	 */
 	public function __construct() {
 		$this->path = plugin_dir_path( __FILE__ );
-		$this->setup();
+		add_action( 'bp_loaded', array( $this, 'setup' ) );
+
 	}
 
 	/**
@@ -34,7 +35,12 @@ class BuddyDev_BP_Notifications_Widget_Helper {
 	 */
 	public function setup() {
 
-		add_action( 'bp_loaded', array( $this, 'load' ) );
+		// Only if the notifications component is enabled, we will load and do other stuff.
+		if ( ! bp_is_active( 'notifications' ) ) {
+			return ;
+		}
+
+		$this->load();
 		add_action( 'bp_init', array( $this, 'load_textdomain' ) );
 		add_action( 'bp_widgets_init', array( $this, 'register_widget' ) );
 		add_action( 'bp_enqueue_scripts', array( $this, 'load_js' ) );
@@ -46,7 +52,7 @@ class BuddyDev_BP_Notifications_Widget_Helper {
 	 * Load core files
 	 */
 	public function load() {
-		require_once $this->path . 'core/bp-notification-widget-functions.php';
+		require_once $this->path . 'core/class-bp-notification-widget.php';
 	}
 
 	/**
