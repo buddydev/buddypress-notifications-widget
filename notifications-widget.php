@@ -36,6 +36,7 @@ class BuddyDev_BP_Notifications_Widget_Helper {
 
 		add_action( 'bp_loaded', array( $this, 'load' ) );
 		add_action( 'bp_widgets_init', array( $this, 'register_widget' ) );
+		add_action( 'bp_enqueue_scripts', array( $this, 'load_js' ) );
 
 	}
 
@@ -59,6 +60,14 @@ class BuddyDev_BP_Notifications_Widget_Helper {
 	 */
 	public function register_widget() {
 		register_widget( 'BuddyDev_BPNotification_Widget' );
+	}
+
+	/**
+	 * Load js
+	 */
+	public function load_js() {
+		$url = plugin_dir_url( __FILE__ );
+		wp_enqueue_script( 'bp-notification-widget-clear-js', $url . 'notification.js', array( 'jquery' ) );
 	}
 }
 
@@ -88,11 +97,6 @@ add_action( 'bp_loaded', 'bpdev_bpdnw_load_textdomain', 2 );
 
 
 
-//load javascript
-add_action( 'bp_enqueue_scripts', 'bpdev_notification_widget_load_js' );
-function bpdev_notification_widget_load_js() {
-	wp_enqueue_script( 'notification-clear-js', plugin_dir_url( __FILE__ ) . "notification.js", array( 'jquery' ) );
-}
 
 //ajaxed delete
 add_action( 'wp_ajax_bpdev_notification_clear_notifications', 'bpdev_notification_clear_notifications' );
