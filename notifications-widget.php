@@ -80,7 +80,7 @@ add_action( 'bp_loaded', 'bpdev_bpdnw_load_textdomain', 2 );
 
 //register widgets
 function bpdev_notification_register_widget() {
-	register_widget( 'BPDev_BPNotification_Widget' );
+	register_widget( 'BuddyDev_BPNotification_Widget' );
 
 }
 
