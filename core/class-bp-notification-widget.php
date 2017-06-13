@@ -38,14 +38,13 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 		} else {
 			$notifications = bp_core_get_notifications_for_user( get_current_user_id(), 'string' );
 		}
-
 		// will be set to false if there are no notifications.
 		if ( empty( $notifications ) ) {
-			$count = 0;
+			$countx = 0;
 		} else {
-			$count = count( $notifications );
+			$countx = count( $notifications );
 		}
-
+		$count = bp_notifications_get_unread_notification_count();
 		// do not show this widget.
 		if ( $count <= 0 && empty( $instance['show_empty'] ) ) {
 			return;
@@ -64,16 +63,26 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 		echo "<div class='bpnw-notification-list bp-notification-widget-notifications-list'>";
 
 		if ( ! empty( $instance['show_count'] ) ) {
+			echo '<a href="'.bp_get_notifications_permalink().'">'; 
 			printf( __( 'You have %d new Notifications', 'buddypress-notifications-widget' ), $count );
+			echo '</a>';
 		}
 
 		if ( $instance['show_list'] ) {
-			self::print_list( $notifications, $count );
+			self::print_list( $notifications, $countx );
 		}
 
 		if ( $count > 0 && $instance['show_clear_notification'] ) {
-		    $clear_text = __( 'clearing...', 'buddypress-notifications-widget' );
-			echo '<a data-clear-text="' . $clear_text .'" class="bp-notifications-widget-clear-link" href="' . bp_loggedin_user_domain() . '?clear-all=true' . '&_wpnonce=' . wp_create_nonce( 'bp-notifications-widget-clear-all-' . bp_loggedin_user_id() ) . '">' . __( '[x] Clear All Notifications', 'buddypress-notifications-widget' ) . '</a>';
+		    if($instance['mark_read']) {
+		        $clear_text = __( 'marking read...', 'buddypress-notifications-widget' );
+		        $clear_text_widget = __( '[x] Mark All Notifications Read', 'buddypress-notifications-widget' );
+                        $clear_all = 'read';
+		    } else {
+		        $clear_text = __( 'clearing...', 'buddypress-notifications-widget' );
+		        $clear_text_widget = __( '[x] Clear All Notifications', 'buddypress-notifications-widget' );
+                        $clear_all = 'true';
+		    }
+		    echo '<a data-clear-text="' . $clear_text .'" class="bp-notifications-widget-clear-link" href="' . bp_loggedin_user_domain() . '?clear-all=' .$clear_all. '&_wpnonce=' . wp_create_nonce( 'bp-notifications-widget-clear-all-' . bp_loggedin_user_id() ) . '">' . $clear_text_widget . '</a>';
 		}
 
 		echo '</div>';
@@ -97,6 +106,7 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 		$instance['show_list']               = intval( $new_instance['show_list'] );
 		$instance['show_clear_notification'] = intval( $new_instance['show_clear_notification'] );
 		$instance['show_empty']              = intval( $new_instance['show_empty'] );
+		$instance['mark_read']               = intval( $new_instance['mark_read'] );
 
 		return $instance;
 	}
@@ -116,6 +126,7 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 				'show_list'               => 1,
 				'show_clear_notification' => 1,
 				'show_empty'              => 0,
+				'mark_read'               => 0,
 			)
 		);
 
@@ -125,6 +136,7 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 		$show_list               = absint( $instance['show_list'] ); // show notification list.
 		$show_clear_notification = absint( $instance['show_clear_notification'] );
 		$show_empty              = absint( $instance['show_empty'] );
+		$mark_read               = absint( $instance['mark_read'] );
 		?>
         <p>
             <label for="bp-notification-title">
@@ -162,6 +174,13 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
                 <input class="widefat" id="<?php echo $this->get_field_id( 'show_empty' ); ?>"
                        name="<?php echo $this->get_field_name( 'show_empty' ); ?>" type="checkbox"
                        value="1" <?php checked( $show_empty, 1 ); ?> />
+            </label>
+        </p>
+        <p>
+            <label for="bp-mark-read-widget"><?php _e( 'Mark notifications read instead of deletion', 'buddypress-notifications-widget' ); ?>
+                <input class="widefat" id="<?php echo $this->get_field_id( 'mark_read' ); ?>"
+                       name="<?php echo $this->get_field_name( 'mark_read' ); ?>" type="checkbox"
+                       value="1" <?php checked( $mark_read, 1 ); ?> />
             </label>
         </p>
         <p>
