@@ -3,11 +3,15 @@
  * Plugin Name: BuddyPress Notifications Widget
  * Author: BuddyDev
  * Version: 1.2.0
- * Plugin URI: http://buddydev.com/plugins/buddypress-notifications-widget/
- * Author URI: http://buddydev.com/
+ * Plugin URI: https://buddydev.com/plugins/buddypress-notifications-widget/
+ * Author URI: https://buddydev.com/
  * Description: Allow site admins to show BuddyPress user notification in widget.
  * License: GPL
  */
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 0 );
+}
 
 /**
  * Helps loading the core files and translations
@@ -85,7 +89,7 @@ class BuddyDev_BP_Notifications_Widget_Helper {
 
 		$wpdb->query( $wpdb->prepare( "DELETE FROM {$bp->core->table_name_notifications} WHERE user_id = %d ", $user_id ) );
 
-		echo "1";
+		echo '1';
 		exit( 0 );
 	}
 
