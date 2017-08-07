@@ -15,7 +15,7 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 	 * Constructor
 	 */
 	public function __construct() {
-		$name = __( '(BuddyDev) BP Notifications', 'buddypress-notifications-widget' );
+		$name = __( '(BuddyDev) BuddPress Notifications', 'buddypress-notifications-widget' );
 		parent::__construct( false, $name );
 	}
 
@@ -63,8 +63,8 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 
 		echo "<div class='bpnw-notification-list bp-notification-widget-notifications-list'>";
 
-		if ( ! empty( $instance['show_count'] ) ) {
-			printf( __( 'You have %d new Notifications', 'buddypress-notifications-widget' ), $count );
+		if ( ! empty( $instance['show_count'] ) && ( $count> 0 || empty( $instance['show_list'] ) ) ) {
+			printf( __( 'You have %d new notifications', 'buddypress-notifications-widget' ), $count );
 		}
 
 		if ( $instance['show_list'] ) {
@@ -73,7 +73,7 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 
 		if ( $count > 0 && $instance['show_clear_notification'] ) {
 		    $clear_text = __( 'clearing...', 'buddypress-notifications-widget' );
-			echo '<a data-clear-text="' . $clear_text .'" class="bp-notifications-widget-clear-link" href="' . bp_loggedin_user_domain() . '?clear-all=true' . '&_wpnonce=' . wp_create_nonce( 'bp-notifications-widget-clear-all-' . bp_loggedin_user_id() ) . '">' . __( '[x] Clear All Notifications', 'buddypress-notifications-widget' ) . '</a>';
+			echo '<br /><a data-clear-text="' . $clear_text .'" class="bp-notifications-widget-clear-link" href="' . bp_loggedin_user_domain() . '?clear-all=true' . '&_wpnonce=' . wp_create_nonce( 'bp-notifications-widget-clear-all-' . bp_loggedin_user_id() ) . '">' . __( '[x] Clear All Notifications', 'buddypress-notifications-widget' ) . '</a>';
 		}
 
 		echo '</div>';
