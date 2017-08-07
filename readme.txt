@@ -47,7 +47,7 @@ No, It needs you to have BuddyPress Installed and activated
 = 1.2.1 =
  * Test with BuddyPress 2.9.0
  * Correct the name of the translation files.
- 
+
 = 1.2.0 =
  * Complete rewrite of the widget
  * Added option to allow showing widget even when there are no notifications.
