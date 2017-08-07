@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BuddyPress Notifications Widget\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-04 21:30+0530\n"
-"PO-Revision-Date: 2017-04-04 21:30+0530\n"
+"POT-Creation-Date: 2017-08-07 15:16+0530\n"
+"PO-Revision-Date: 2017-08-07 15:16+0530\n"
 "Last-Translator: Brajesh Singh <brajesh@gmail.com>\n"
 "Language-Team: \n"
 "Language: en\n"
@@ -17,12 +17,12 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 #: core/class-bp-notification-widget.php:18
-msgid "(BuddyDev) BP Notifications"
+msgid "(BuddyDev) BuddPress Notifications"
 msgstr ""
 
 #: core/class-bp-notification-widget.php:67
 #, php-format
-msgid "You have %d new Notifications"
+msgid "You have %d new notifications"
 msgstr ""
 
 #: core/class-bp-notification-widget.php:75
