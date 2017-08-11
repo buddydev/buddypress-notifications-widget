@@ -87,7 +87,10 @@ class BuddyDev_BP_Notifications_Widget_Helper {
 
 		global $bp, $wpdb;
 
-		$wpdb->query( $wpdb->prepare( "DELETE FROM {$bp->core->table_name_notifications} WHERE user_id = %d ", $user_id ) );
+		if($_REQUEST['clear-all'] == 'true') 
+			$wpdb->query( $wpdb->prepare( "DELETE FROM {$bp->core->table_name_notifications} WHERE user_id = %d ", $user_id ) );
+		else
+			$wpdb->query( $wpdb->prepare( "UPDATE {$bp->core->table_name_notifications} SET is_new=0 WHERE user_id = %d ", $user_id ) );
 
 		echo '1';
 		exit( 0 );
@@ -98,9 +101,8 @@ class BuddyDev_BP_Notifications_Widget_Helper {
 	 */
 	public function load_js() {
 		$url = plugin_dir_url( __FILE__ );
-		wp_enqueue_script( 'bp-notification-widget-clear-js', $url . 'notification.js', array( 'jquery' ) );
+		wp_enqueue_script( 'bp-notification-widget-clear-js', $url . 'notification.js', array( 'jquery' ), '1.2.3', true); // load in footer
 	}
 }
 
 new BuddyDev_BP_Notifications_Widget_Helper();
-
