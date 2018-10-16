@@ -1,18 +1,20 @@
 <?php
 /**
- * Notification widget
+ * Notification widget class
  */
 
+// Do not allow direct access.
 if ( ! defined( 'ABSPATH' ) ) {
-	exit( 0 ); // Do not allow direct access.
+	exit( 0 );
 }
 
 /**
  * BuddyPress Notifications widget class
  */
 class BuddyDev_BPNotification_Widget extends WP_Widget {
-	/**
-	 * Constructor
+
+    /**
+	 * BuddyDev_BPNotification_Widget Constructor
 	 */
 	public function __construct() {
 		$name = __( '(BuddyDev) BuddPress Notifications', 'buddypress-notifications-widget' );
@@ -53,7 +55,7 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 
 		echo $args['before_widget'];
 		echo $args['before_title'];
-		echo apply_filters( 'widget_title', $instance['title'] , $instance, $this->id_base );
+		echo apply_filters( 'widget_title', $instance['title'], $instance, $this->id_base );
 
 		if ( $instance['show_count_in_title'] ) {
 			printf( "<span class='notification-count-in-title'>(%d)</span>", $count );
@@ -63,7 +65,7 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 
 		echo "<div class='bpnw-notification-list bp-notification-widget-notifications-list'>";
 
-		if ( ! empty( $instance['show_count'] ) && ( $count> 0 || empty( $instance['show_list'] ) ) ) {
+		if ( ! empty( $instance['show_count'] ) && ( $count > 0 || empty( $instance['show_list'] ) ) ) {
 			printf( __( 'You have %d new notifications', 'buddypress-notifications-widget' ), $count );
 		}
 
@@ -72,13 +74,13 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 		}
 
 		if ( $count > 0 && $instance['show_clear_notification'] ) {
-		    $clear_text = __( 'clearing...', 'buddypress-notifications-widget' );
-			echo '<br /><a data-clear-text="' . $clear_text .'" class="bp-notifications-widget-clear-link" href="' . bp_loggedin_user_domain() . '?clear-all=true' . '&_wpnonce=' . wp_create_nonce( 'bp-notifications-widget-clear-all-' . bp_loggedin_user_id() ) . '">' . __( '[x] Clear All Notifications', 'buddypress-notifications-widget' ) . '</a>';
+			$clear_text = __( 'clearing...', 'buddypress-notifications-widget' );
+			echo '<br /><a data-clear-text="' . $clear_text . '" class="bp-notifications-widget-clear-link" href="' . bp_loggedin_user_domain() . '?clear-all=true' . '&_wpnonce=' . wp_create_nonce( 'bp-notifications-widget-clear-all-' . bp_loggedin_user_id() ) . '">' . __( '[x] Clear All Notifications', 'buddypress-notifications-widget' ) . '</a>';
 		}
 
 		echo '</div>';
-		echo $args['after_widget'];
 
+		echo $args['after_widget'];
 	}
 
 	/**
@@ -108,7 +110,7 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 	 */
 	public function form( $instance ) {
 		$instance = wp_parse_args(
-			(array) $instance,
+			$instance,
 			array(
 				'title'                   => __( 'Notifications', 'buddypress-notifications-widget' ),
 				'show_count'              => 1,
@@ -197,12 +199,14 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 					$notification_item = $notifications[ $i ];
 				}
 
+				$alt = ( 0 == $counter % 2 ) ? ' class="alt"' : '';
 
-				$alt = ( 0 == $counter % 2 ) ? ' class="alt"' : ''; ?>
+				?>
 
                 <li <?php echo $alt ?>><?php echo $notification_item ?></li>
 
 				<?php $counter ++;
+
 			}
 		} else { ?>
 
