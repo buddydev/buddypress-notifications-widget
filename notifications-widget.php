@@ -8,13 +8,14 @@
  * Description: Allow site admins to show BuddyPress user notification in widget.
  * License: GPL
  */
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit( 0 );
 }
 
 /**
- * Helps loading the core files and translations
+ * BuddyDev_BP_Notifications_Widget_Helper
  */
 class BuddyDev_BP_Notifications_Widget_Helper {
 
@@ -26,10 +27,19 @@ class BuddyDev_BP_Notifications_Widget_Helper {
 	private $path;
 
 	/**
-	 * Constructor
+	 * Plugin directory url.
+	 *
+	 * @var string
+	 */
+	private $url;
+
+	/**
+	 * BuddyDev_BP_Notifications_Widget_Helper Constructor
 	 */
 	public function __construct() {
 		$this->path = plugin_dir_path( __FILE__ );
+		$this->url  = plugin_dir_url( __FILE__ );
+
 		add_action( 'bp_loaded', array( $this, 'setup' ) );
 	}
 
@@ -44,15 +54,15 @@ class BuddyDev_BP_Notifications_Widget_Helper {
 		}
 
 		$this->load();
+
 		add_action( 'bp_init', array( $this, 'load_textdomain' ) );
 		add_action( 'bp_widgets_init', array( $this, 'register_widget' ) );
 		add_action( 'bp_enqueue_scripts', array( $this, 'load_js' ) );
 		add_action( 'wp_ajax_bpdev_notification_clear_notifications', array( $this, 'clear_notifications' ) );
-
 	}
 
 	/**
-	 * Load core files
+	 * Load file
 	 */
 	public function load() {
 		require_once $this->path . 'core/class-bp-notification-widget.php';
@@ -85,7 +95,9 @@ class BuddyDev_BP_Notifications_Widget_Helper {
 
 		check_ajax_referer( 'bp-notifications-widget-clear-all-' . $user_id );
 
-		global $bp, $wpdb;
+		global $wpdb;
+
+		$bp = buddypress();
 
 		$wpdb->query( $wpdb->prepare( "DELETE FROM {$bp->core->table_name_notifications} WHERE user_id = %d ", $user_id ) );
 
@@ -97,10 +109,8 @@ class BuddyDev_BP_Notifications_Widget_Helper {
 	 * Load js
 	 */
 	public function load_js() {
-		$url = plugin_dir_url( __FILE__ );
-		wp_enqueue_script( 'bp-notification-widget-clear-js', $url . 'notification.js', array( 'jquery' ) );
+		wp_enqueue_script( 'bp-notification-widget-clear-js', $this->url . 'notification.js', array( 'jquery' ) );
 	}
 }
 
 new BuddyDev_BP_Notifications_Widget_Helper();
-
