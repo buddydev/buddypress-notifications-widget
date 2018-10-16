@@ -101,8 +101,7 @@ class BuddyDev_BP_Notifications_Widget_Helper {
 
 		$wpdb->query( $wpdb->prepare( "DELETE FROM {$bp->core->table_name_notifications} WHERE user_id = %d ", $user_id ) );
 
-		echo '1';
-		exit( 0 );
+		wp_send_json_success( __( 'Cleared', 'buddypress-notifications-widget' ) );
 	}
 
 	/**

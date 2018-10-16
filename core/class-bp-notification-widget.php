@@ -34,11 +34,13 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 			return;
 		}
 
+		$user_id = get_current_user_id();
+
 		// let us get the notifications for the user.
 		if ( function_exists( 'bp_notifications_get_notifications_for_user' ) ) {
-			$notifications = bp_notifications_get_notifications_for_user( get_current_user_id(), 'string' );
+			$notifications = bp_notifications_get_notifications_for_user( $user_id, 'string' );
 		} else {
-			$notifications = bp_core_get_notifications_for_user( get_current_user_id(), 'string' );
+			$notifications = bp_core_get_notifications_for_user( $user_id, 'string' );
 		}
 
 		// will be set to false if there are no notifications.
@@ -55,7 +57,15 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 
 		echo $args['before_widget'];
 		echo $args['before_title'];
-		echo apply_filters( 'widget_title', $instance['title'], $instance, $this->id_base );
+
+		$title = apply_filters( 'widget_title', $instance['title'], $instance, $this->id_base );
+
+        $notification_link = bp_loggedin_user_domain() . bp_get_notifications_slug();
+        $title_link = sprintf( '<a href="%s">%s</a>', $notification_link, $instance['title'] );
+
+		$widget_title = ( ! empty( $instance['link_title'] ) ) ? $title_link : $title;
+
+		echo $widget_title;
 
 		if ( $instance['show_count_in_title'] ) {
 			printf( "<span class='notification-count-in-title'>(%d)</span>", $count );
@@ -94,6 +104,7 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		$instance                            = $old_instance;
 		$instance['title']                   = strip_tags( $new_instance['title'] );
+		$instance['link_title']              = intval( $new_instance['link_title'] );
 		$instance['show_count_in_title']     = intval( $new_instance['show_count_in_title'] );
 		$instance['show_count']              = intval( $new_instance['show_count'] );
 		$instance['show_list']               = intval( $new_instance['show_list'] );
@@ -113,6 +124,7 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 			$instance,
 			array(
 				'title'                   => __( 'Notifications', 'buddypress-notifications-widget' ),
+				'link_title'              => 1,
 				'show_count'              => 1,
 				'show_count_in_title'     => 0,
 				'show_list'               => 1,
@@ -122,6 +134,7 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 		);
 
 		$title                   = strip_tags( $instance['title'] );
+		$link_title              = absint( $instance['link_title'] ); // Link title to the user notifications tab.
 		$show_count_in_title     = absint( $instance['show_count_in_title'] ); // show notification count.
 		$show_count              = absint( $instance['show_count'] ); // show notification count.
 		$show_list               = absint( $instance['show_list'] ); // show notification list.
@@ -136,6 +149,16 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
                        value="<?php echo esc_attr( $title ); ?>"/>
             </label>
         </p>
+
+        <p>
+            <label for="bp-notification-link-title">
+				<?php _e( 'Link widget title to notification tab', 'buddypress-notifications-widget' ); ?>
+                <input class="widefat" id="<?php echo $this->get_field_id( 'link_title' ); ?>"
+                       name="<?php echo $this->get_field_name( 'link_title' ); ?>" type="checkbox"
+                       value="1" <?php checked( 1, $link_title ); ?> />
+            </label>
+        </p>
+
         <p>
             <label for="bp-show-notification-count-in-title">
 				<?php _e( 'Show Notification count in title', 'buddypress-notifications-widget' ); ?>
