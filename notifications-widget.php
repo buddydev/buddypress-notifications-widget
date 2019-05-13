@@ -66,6 +66,9 @@ class BuddyDev_BP_Notifications_Widget_Helper {
 	 */
 	public function load() {
 		require_once $this->path . 'core/class-bp-notification-widget.php';
+		require_once $this->path . 'core/class-bp-notification-shortcode-helper.php';
+
+		BP_Notification_Shortcode_Helper::boot();
 	}
 
 	/**
