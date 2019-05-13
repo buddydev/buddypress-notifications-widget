@@ -1,5 +1,5 @@
 === BuddyPress Notification Widget ===
-Contributors: anusharma,sbrajesh,buddydev
+Contributors: anusharma,sbrajesh,buddydev,raviousprime
 Tags: buddypress, notifications, widget
 Requires at least: 4.4
 Tested up to: 4.8.1
