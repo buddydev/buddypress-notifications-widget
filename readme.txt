@@ -2,8 +2,8 @@
 Contributors: anusharma,sbrajesh,buddydev,raviousprime
 Tags: buddypress, notifications, widget
 Requires at least: 4.4
-Tested up to: 4.8.1
-Stable tag: 1.3.0
+Tested up to: 5.2.3
+Stable tag: 1.3.2
 License: GPLv2 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,8 @@ No, It needs you to have BuddyPress Installed and activated
 1. This shows notifications in widget screenshot.png
 
 == Changelog ==
+= 1.3.1 =
+ * Remove unwanted directory.
 
 = 1.3.0 =
  * Added support for shortcode['buddydev_bp_notification'] in the plugin
