@@ -73,22 +73,11 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 
 		echo $args['after_title'];
 
-		echo "<div class='bpnw-notification-list bp-notification-widget-notifications-list'>";
-
-		if ( ! empty( $instance['show_count'] ) && ( $count > 0 || empty( $instance['show_list'] ) ) ) {
-			printf( '<a href="%s">%s</a>', $notification_link, sprintf( __( 'You have %d new notifications', 'buddypress-notifications-widget' ), $count ) );
-		}
-
-		if ( $instance['show_list'] ) {
-			self::print_list( $notifications, $count );
-		}
-
-		if ( $count > 0 && $instance['show_clear_notification'] ) {
-			$clear_text = __( 'clearing...', 'buddypress-notifications-widget' );
-			echo '<br /><a data-clear-text="' . $clear_text . '" class="bp-notifications-widget-clear-link" href="' . bp_loggedin_user_domain() . '?clear-all=true' . '&_wpnonce=' . wp_create_nonce( 'bp-notifications-widget-clear-all-' . bp_loggedin_user_id() ) . '">' . __( '[x] Clear All Notifications', 'buddypress-notifications-widget' ) . '</a>';
-		}
-
-		echo '</div>';
+		bpnw_load_template( 'notifications.php', true, array_merge( $instance, array(
+			'count'             => $count,
+			'notification_link' => $notification_link,
+			'notifications'     => $notifications,
+		) ) );
 
 		echo $args['after_widget'];
 	}
