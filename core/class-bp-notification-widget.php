@@ -73,11 +73,23 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 
 		echo $args['after_title'];
 
-		bpnw_load_template( 'notifications.php', true, array_merge( $instance, array(
-			'count'             => $count,
-			'notification_link' => $notification_link,
-			'notifications'     => $notifications,
-		) ) );
+		$template = 'notifications.php';
+		if ( defined( 'BP_PLATFORM_VERSION' ) ) {
+			$template = 'bb-notifications.php';
+		}
+
+		bpnw_load_template(
+			$template,
+			true,
+			array_merge(
+				$instance,
+				array(
+					'count'             => $count,
+					'notification_link' => $notification_link,
+					'notifications'     => $notifications,
+				)
+			)
+		);
 
 		echo $args['after_widget'];
 	}

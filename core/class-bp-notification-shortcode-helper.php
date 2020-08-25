@@ -63,6 +63,8 @@ class BP_Notification_Shortcode_Helper {
 		$notification_link = bp_loggedin_user_domain() . bp_get_notifications_slug();
 		$title_link        = sprintf( '<a href="%s">%s</a>', $notification_link, $atts['title'] );
 
+		ob_start();
+
 		$title = ( ! empty( $atts['link_title'] ) ) ? $title_link : $atts['title'];
 
 		echo $title;
@@ -71,22 +73,24 @@ class BP_Notification_Shortcode_Helper {
 			printf( "<span class='notification-count-in-title'>(%d)</span>", $count );
 		}
 
-		echo "<div class='bpnw-notification-list bp-notification-widget-notifications-list'>";
-
-		if ( ! empty( $atts['show_count'] ) && ( $count > 0 || empty( $atts['show_list'] ) ) ) {
-			printf( __( 'You have %d new notifications', 'buddypress-notifications-widget' ), $count );
+		$template = 'notifications.php';
+		if ( defined( 'BP_PLATFORM_VERSION' ) ) {
+			$template = 'bb-notifications.php';
 		}
 
-		if ( $atts['show_list'] ) {
-			$notification_widget = new BuddyDev_BPNotification_Widget();
-			$notification_widget->print_list( $notifications, $count );
-		}
+		bpnw_load_template(
+			$template,
+			true,
+			array_merge(
+				$atts,
+				array(
+					'count'             => $count,
+					'notification_link' => $notification_link,
+					'notifications'     => $notifications,
+				)
+			)
+		);
 
-		if ( $count > 0 && $atts['show_clear_notification'] ) {
-			$clear_text = __( 'clearing...', 'buddypress-notifications-widget' );
-			echo '<br /><a data-clear-text="' . $clear_text . '" class="bp-notifications-widget-clear-link" href="' . bp_loggedin_user_domain() . '?clear-all=true' . '&_wpnonce=' . wp_create_nonce( 'bp-notifications-widget-clear-all-' . bp_loggedin_user_id() ) . '">' . __( '[x] Clear All Notifications', 'buddypress-notifications-widget' ) . '</a>';
-		}
-
-		echo '</div>';
+		return ob_get_clean();
 	}
 }
