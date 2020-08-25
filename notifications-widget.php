@@ -20,6 +20,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 class BuddyDev_BP_Notifications_Widget_Helper {
 
 	/**
+	 * Class instance
+	 *
+	 * @var BuddyDev_BP_Notifications_Widget_Helper
+	 */
+	private static $instance = null;
+
+	/**
 	 * Absolute path to this plugin directory
 	 *
 	 * @var string
@@ -34,6 +41,13 @@ class BuddyDev_BP_Notifications_Widget_Helper {
 	private $url;
 
 	/**
+	 * Guarded properties.
+	 *
+	 * @var array
+	 */
+	private $guarded_properties = array( 'instance' );
+
+	/**
 	 * BuddyDev_BP_Notifications_Widget_Helper Constructor
 	 */
 	public function __construct() {
@@ -41,6 +55,20 @@ class BuddyDev_BP_Notifications_Widget_Helper {
 		$this->url  = plugin_dir_url( __FILE__ );
 
 		add_action( 'bp_loaded', array( $this, 'setup' ) );
+	}
+
+	/**
+	 * Class instance
+	 *
+	 * @return BuddyDev_BP_Notifications_Widget_Helper
+	 */
+	public static function get_instance() {
+
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
 	}
 
 	/**
@@ -113,6 +141,31 @@ class BuddyDev_BP_Notifications_Widget_Helper {
 	public function load_js() {
 		wp_enqueue_script( 'bp-notification-widget-clear-js', $this->url . 'notification.js', array( 'jquery' ) );
 	}
+
+	/**
+	 * Get property value
+	 *
+	 * @param string $name Property name.
+	 *
+	 * @return mixed|null
+	 */
+	public function __get( $name ) {
+
+		if ( property_exists( $this, $name ) && ! in_array( $name, $this->guarded_properties ) ) {
+			return $this->{$name};
+		}
+
+		return null;
+	}
 }
 
-new BuddyDev_BP_Notifications_Widget_Helper();
+/**
+ * Class instance;
+ *
+ * @return BuddyDev_BP_Notifications_Widget_Helper
+ */
+function buddypress_notification_widget() {
+	return BuddyDev_BP_Notifications_Widget_Helper::get_instance();
+}
+
+buddypress_notification_widget();
