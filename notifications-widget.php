@@ -48,11 +48,20 @@ class BuddyDev_BP_Notifications_Widget_Helper {
 	private $guarded_properties = array( 'instance' );
 
 	/**
+	 * Check if buddyboss active or not
+	 *
+	 * @var bool
+	 */
+	private $active_buddyboss = false;
+
+	/**
 	 * BuddyDev_BP_Notifications_Widget_Helper Constructor
 	 */
 	public function __construct() {
 		$this->path = plugin_dir_path( __FILE__ );
 		$this->url  = plugin_dir_url( __FILE__ );
+
+		$this->active_buddyboss = defined( 'BP_PLATFORM_VERSION' );
 
 		add_action( 'bp_loaded', array( $this, 'setup' ) );
 	}

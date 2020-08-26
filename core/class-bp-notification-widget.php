@@ -74,7 +74,7 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 		echo $args['after_title'];
 
 		$template = 'notifications.php';
-		if ( defined( 'BP_PLATFORM_VERSION' ) ) {
+		if ( buddypress_notification_widget()->active_buddyboss ) {
 			$template = 'bb-notifications.php';
 		}
 
