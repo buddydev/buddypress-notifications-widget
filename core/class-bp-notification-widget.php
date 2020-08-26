@@ -38,7 +38,9 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 
 		// let us get the notifications for the user.
 		if ( function_exists( 'bp_notifications_get_notifications_for_user' ) ) {
-			$notifications = bp_notifications_get_notifications_for_user( $user_id, 'string' );
+			$format = buddypress_notification_widget()->active_buddyboss ? 'object' : 'string';
+
+			$notifications = bp_notifications_get_notifications_for_user( $user_id, $format );
 		} else {
 			$notifications = bp_core_get_notifications_for_user( $user_id, 'string' );
 		}

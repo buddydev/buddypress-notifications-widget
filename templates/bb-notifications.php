@@ -26,16 +26,10 @@ $notification_link       = isset( $args['notification_link'] ) ? esc_url( $args[
 		<ul class="bp-notification-list">
 
 			<?php if ( $notifications ) : ?>
-				<?php $counter = 0; for ( $i = 0; $i < $count; $i ++ ) : ?>
-
-					<?php
-					$notification_item = is_array( $notifications[ $i ] ) ? sprintf( '<a href="%s">%s</a>', $notifications[ $i ]['link'], $notifications[ $i ]['text'] ) : $notifications[ $i ];
-					$alt               = ( 0 == $counter % 2 ) ? ' class="alt"' : '';
-					$counter ++;
-					?>
-
-					<li <?php echo $alt ?>><?php echo $notification_item ?></li>
-				<?php endfor; ?>
+				<?php foreach ( $notifications as $notification ) : ?>
+                <?php $notification_item = sprintf( '<a href="%s">%s</a>', $notification->href, $notification->content ); ?>
+                    <li><?php bpnw_notification_avatar( $notification ); ?><?php echo $notification_item; ?></li>
+                <?php endforeach; ?>
 			<?php else : ?>
 				<li><?php _e( "You don't have any new notification.", 'buddypress-notifications-widget' ); ?></li>
 			<?php endif; ?>

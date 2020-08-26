@@ -35,8 +35,9 @@ function bpnw_load_template( $template, $load = false, $args = array() ) {
  * Render notification avatar
  *
  * @param BP_Notifications_Notification $notification notification object.
+ * @param int                           $avtar_size Avatar size.
  */
-function bpnw_notification_avatar( $notification ) {
+function bpnw_notification_avatar( $notification, $avtar_size = 30 ) {
 	$component = $notification->component_name;
 
 	switch ( $component ) {
@@ -76,8 +77,7 @@ function bpnw_notification_avatar( $notification ) {
 
 		?>
 		<a href="<?php echo $link ?>">
-			<?php echo bp_core_fetch_avatar( [ 'item_id' => $item_id, 'object' => $object ] ); ?>
-			<?php (isset($user) ? bb_user_status( $user->ID ) : ''); ?>
+			<?php echo bp_core_fetch_avatar( [ 'item_id' => $item_id, 'object' => $object, 'width' => $avtar_size ] ); ?>
 		</a>
 		<?php
 	}
