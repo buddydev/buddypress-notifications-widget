@@ -3,10 +3,12 @@ jQuery(document).ready(function ( $ ) {
     $(document).on('click', '.bp-notifications-widget-clear-link', function () {
         var $this = $(this);
         var nonce = get_var_in_url($this.attr('href'), '_wpnonce');
+        var clear = get_var_in_url($this.attr('href'), 'clear-all');
         $this.text( $this.data( 'clear-text' ) );
 
         $.post(ajaxurl, {
             'action': 'bpdev_notification_clear_notifications',
+            'clear-all': clear,
             '_wpnonce': nonce,
             cookie: encodeURIComponent(document.cookie)
         }, function (resp) {
