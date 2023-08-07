@@ -2,8 +2,8 @@
 Contributors: anusharma,sbrajesh,buddydev,raviousprime
 Tags: buddypress, notifications, widget
 Requires at least: 4.4
-Tested up to: 5.9
-Stable tag: 1.3.2
+Tested up to: 6.3
+Stable tag: 1.3.3
 License: GPLv2 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,9 @@ No, It needs you to have BuddyPress Installed and activated
 1. This shows notifications in widget screenshot.png
 
 == Changelog ==
+= 1.3.3 =
+ * Fix notices
+
 = 1.3.2 =
  * Add support for link in notification count text.
 
