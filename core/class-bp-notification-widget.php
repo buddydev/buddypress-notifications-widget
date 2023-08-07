@@ -105,14 +105,15 @@ class BuddyDev_BPNotification_Widget extends WP_Widget {
 	 * @return array
 	 */
 	public function update( $new_instance, $old_instance ) {
-		$instance                            = $old_instance;
+		$instance = $old_instance;
+
 		$instance['title']                   = strip_tags( $new_instance['title'] );
-		$instance['link_title']              = intval( $new_instance['link_title'] );
-		$instance['show_count_in_title']     = intval( $new_instance['show_count_in_title'] );
-		$instance['show_count']              = intval( $new_instance['show_count'] );
-		$instance['show_list']               = intval( $new_instance['show_list'] );
-		$instance['show_clear_notification'] = intval( $new_instance['show_clear_notification'] );
-		$instance['show_empty']              = intval( $new_instance['show_empty'] );
+		$instance['link_title']              = empty( $new_instance['link_title'] ) ? 0 : 1;
+		$instance['show_count_in_title']     = empty( $new_instance['show_count_in_title'] ) ? 0 : 1;
+		$instance['show_count']              = empty( $new_instance['show_count'] ) ? 0 : 1;
+		$instance['show_list']               = empty( $new_instance['show_list'] ) ? 0 : 1;
+		$instance['show_clear_notification'] = empty( $new_instance['show_clear_notification'] ) ? 0 : 1;
+		$instance['show_empty']              = empty( $new_instance['show_empty'] ) ? 0 : 1;
 
 		return $instance;
 	}
